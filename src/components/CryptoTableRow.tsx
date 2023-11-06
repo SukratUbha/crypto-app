@@ -1,7 +1,7 @@
 import { TableCell, TableRow } from '@mui/material'
-import { Coin } from '../api/CoinGeckoApi'
+import { CoinType } from '../features/crypto/CryptoSlice'
 
-export default function CrptoTableRow(coin:Coin) {
+export default function CryptoTableRow(coin:CoinType) {
     return (
         <TableRow key={coin.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
             <TableCell align="left" component="th" scope="row">

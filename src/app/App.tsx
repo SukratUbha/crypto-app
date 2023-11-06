@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import './App.css';
-import CryptoTable from '../components/CryptoTable';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { useAppDispatch } from '../store';
 import { fetchCoins } from '../features/crypto/CryptoSlice';
+import CryptoHome from '../components/CryptoHome';
 
-function App() {
+export default function App() {
   const dispatch = useAppDispatch();
+  
+
   useEffect(() => {
       dispatch(fetchCoins(`${process.env.REACT_APP_ALL_COIN_LIST}`))
     }, [dispatch]);
@@ -20,11 +22,10 @@ function App() {
             Cryptocurrency viewing app
           </Typography>
           <div className="App">
-            <CryptoTable />
+            <CryptoHome />
           </div>
         </Box>
       </Container>
   );
 }
 
-export default App;
