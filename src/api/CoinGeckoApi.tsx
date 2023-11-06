@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 
-export type Coin ={
+export type Coin = {
   id: string,
   symbol: string,
   name: string,
@@ -30,6 +30,12 @@ export type Coin ={
 }
 
 export default async function CoinGeckoApi(): Promise<Coin[]> {
-  const response = await axios.get(`${process.env.REACT_APP_ALL_COIN_LIST}`);
-  return response.data
+  try {
+    const response = await axios.get(`${process.env.REACT_APP_ALL_COIN_LIST}`);
+    return response.data
+  }
+  catch (error) {
+    console.error("Error fetching data: ", error);
+    return [];
+  }
 }

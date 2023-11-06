@@ -1,23 +1,21 @@
 import React from 'react'
 import { Table, TableContainer, TableHead, TableBody, TableRow, TableCell, Paper } from '@mui/material'
-import CoinGeckoApi from '../Api/CoinGeckoApi'
-import type { Coin } from '../Api/CoinGeckoApi';
-
 
 export default function CryptoTable() {
+
     return (
         <>
             <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650, border: 0 }} aria-label="simple table">
+                <Table sx={{ minWidth: 650, border: 0 }} aria-label="table to display cryptocoins" role="table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Coin</TableCell>
-                            <TableCell align="center">Price</TableCell>
-                            <TableCell align="center">1h</TableCell>
-                            <TableCell align="center">24h</TableCell>
-                            <TableCell align="center">7d</TableCell>
-                            <TableCell align="center">24h Volume</TableCell>
-                            <TableCell align="center">Mkt Cap</TableCell>
+                            <TableCell align='left'>Coin</TableCell>
+                            <TableCell align="right">Price</TableCell>
+                            <TableCell align="right">1h</TableCell>
+                            <TableCell align="right">24h</TableCell>
+                            <TableCell align="right">7d</TableCell>
+                            <TableCell align="right">24h Volume</TableCell>
+                            <TableCell align="right">Mkt Cap</TableCell>
                         </TableRow>
                     </TableHead>
                     {/* <TableBody>

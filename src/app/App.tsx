@@ -1,13 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect } from 'react';
 import './App.css';
-import CryptoTable from '../Components/CryptoTable';
+import CryptoTable from '../components/CryptoTable';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
+import { useAppDispatch } from '../store';
+import { fetchCoins } from '../features/crypto/CryptoSlice';
 
 function App() {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+      dispatch(fetchCoins(`${process.env.REACT_APP_ALL_COIN_LIST}`))
+    }, [dispatch]);
+
   return (
       <Container maxWidth="lg">
         <Box sx={{ my: 4 }}>
