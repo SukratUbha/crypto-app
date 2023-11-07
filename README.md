@@ -4,6 +4,7 @@ Use npm run --force
 
 I have nvm installed on my machine with the latest version of node which is currently causing a few dependency errors on my package-lock.
 npm run --force should overcome any of those.
+In .env, write your apikey after the '='. This should be stored in .env.local but is kept kere for ease of access.
 
 ## Testing:
 
