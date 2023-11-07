@@ -9,23 +9,25 @@ export default function CryptoHome() {
     const isLoading = useSelector((state: RootState) => state.crypto.isLoading)
     const error = useSelector((state: RootState) => state.crypto.error)
 
-    function handleSearch (){
-
+    function handleSearch() {
+        console.log('here');
     }
     if (error) {
         return (<div>{error}</div>)
     }
-    if(list.length > 0) {
-        
+
+    if (list.length > 0) {
         return (
-            <CryptoTable cryptoList={list} />
+            <CryptoTable cryptoList={list} tableProps={{ 'Coin': 'name', 'Price': 'current_price', '24h High':'high_24h', '24h Low':'low_24h' ,'24h price change%':'price_change_percentage_24h', 'Mkt Cap': 'market_cap'}} />
         )
     }
-    if(isLoading){<LinearProgress />};
+    if (isLoading) {
+        <LinearProgress />
+    };
 
-    return(
+    return (
         <div className='search'>
-            <TextField id="standard-basic" label="Standard" variant="standard" onChange={()=}/>
+            <TextField id="standard-basic" label="Standard" variant="standard" />
         </div>
     )
 }

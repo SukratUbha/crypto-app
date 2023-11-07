@@ -26,7 +26,8 @@ export type CoinType = {
   atl: number,
   atl_change_percentage: number,
   atl_date: string,
-  last_updated: string
+  last_updated: string,
+  [key: string]: string | number;
 }
 
 const initialState = {
@@ -49,11 +50,7 @@ export const fetchCoins = createAsyncThunk('crypto/fetchCoins', async (apiUrl:st
 const CryptoSlice = createSlice({
   name: 'crypto',
   initialState,
-  reducers: {
-    SetCrypto: (state) => {
-      console.log(state);
-    }
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchCoins.fulfilled, (state, action) => {
       state.coinsList = action.payload;
@@ -69,6 +66,6 @@ const CryptoSlice = createSlice({
   }
 });
  
-export const { SetCrypto } = CryptoSlice.actions
+export const { } = CryptoSlice.actions
 
 export default CryptoSlice.reducer
