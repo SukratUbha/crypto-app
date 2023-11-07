@@ -90,7 +90,7 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
 
 export default function CryptoTable({ cryptoList, tableProps }: CryptoTableProps) {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const navigate = useNavigate();
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - cryptoList.length) : 0;
 
