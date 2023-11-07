@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+[class*="%"][data-value^="positive"] {
+  color: green; /* Apply green text color */
+}
+
+/* Select elements with a class containing "negative" */
+[class*="negative"] {
+  color: red; /* Apply red text color */
+}

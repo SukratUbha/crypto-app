@@ -123,10 +123,11 @@ export default function CryptoTable({ cryptoList, tableProps }: CryptoTableProps
             ? cryptoList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : cryptoList
           ).map((row) => (
-            <TableRow hover sx={{ border: 0 }} key={row.id} onClick={() => { navigate(`/about/:${row.id}`); }}>
+            <TableRow hover sx={{ border: 0 }} key={row.id} onClick={() => { navigate(`/about/${row.id}`); }}>
               {Object.entries(tableProps).map(([key, value]) => (
-                <TableCell key={`${row.id}-${key}`} style={{ width: 160 }} align="left">
-                  {String(row[value])}
+                
+                <TableCell className={`table-body-cell-${key}`} key={`${row.id}-${key}`} style={{ width: 160}} align="left" data-value={row[value]}>
+                   {typeof row[value] === 'number' ? `$${row[value].toLocaleString()}` : row[value]}
                 </TableCell>
               ))}
             </TableRow>

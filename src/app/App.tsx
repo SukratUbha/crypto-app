@@ -20,7 +20,7 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<CryptoHome />} />
-      <Route path="/about" element={<DetailPage />} />
+      <Route path="/about/:coinId" element={<DetailPage />} />
     </Routes>
   );
 }

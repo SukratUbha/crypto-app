@@ -19,9 +19,9 @@ root.render(
       <Provider store={store}>
       <Container maxWidth="xl">
         <Box sx={{ my: 4 }}>
-          <Typography sx={{ letterSpacing: 10 }} variant="h4" component="h1" gutterBottom>
-            Welcome to CryptoCurrency!
-          </Typography>
+          {/* <Typography sx={{ letterSpacing: 10 }} variant="h4" component="h1" gutterBottom>
+             Welcome to CryptoCurrency!
+          </Typography> */}
         <App />
         </Box>
       </Container>

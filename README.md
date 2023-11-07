@@ -1,6 +1,9 @@
-# Getting Started with Create React App
+# How to run:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Use npm run --force
+
+I have nvm installed on my machine with the latest version of node which is currently causing a few dependency errors,
+npm run --force should overcome any of those.
 
 ## Available Scripts
 
