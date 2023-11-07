@@ -125,9 +125,9 @@ export default function CryptoTable({ cryptoList, tableProps }: CryptoTableProps
           ).map((row) => (
             <TableRow hover sx={{ border: 0 }} key={row.id} onClick={() => { navigate(`/about/${row.id}`); }}>
               {Object.entries(tableProps).map(([key, value]) => (
-                
+                // Format data to includes commas and $ excluding any heading with '%'
                 <TableCell className={`table-body-cell-${key}`} key={`${row.id}-${key}`} style={{ width: 160}} align="left" data-value={row[value]}>
-                   {typeof row[value] === 'number' ? `$${row[value].toLocaleString()}` : row[value]}
+                   {typeof row[value] === 'number' && !key.includes('%') ? `$${row[value].toLocaleString()}` : row[value]}
                 </TableCell>
               ))}
             </TableRow>
