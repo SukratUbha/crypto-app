@@ -15,4 +15,5 @@ export type RootState = ReturnType<typeof store.getState>
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch
 
+//Setting useAppDispatch to infer type automatically instead of specifying every use
 export const useAppDispatch: () => AppDispatch = useDispatch

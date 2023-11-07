@@ -1,4 +1,4 @@
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios';
 
 export type CoinType = {
@@ -36,6 +36,7 @@ const initialState = {
     error: null as null | string
 
 }
+//Built in redux function to handle async requests
 export const fetchCoins = createAsyncThunk('crypto/fetchCoins', async (apiUrl:string) =>{
   const response = await axios.get(apiUrl,{
     headers: {
@@ -50,7 +51,13 @@ export const fetchCoins = createAsyncThunk('crypto/fetchCoins', async (apiUrl:st
 const CryptoSlice = createSlice({
   name: 'crypto',
   initialState,
-  reducers: {},
+  reducers: {
+    filteredList: (state, payload) => {
+      // const filteredList = state.coinsList.filter(item =>
+      //   item.name.toLowerCase().includes(payload.text.toLowerCase())
+    // );
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchCoins.fulfilled, (state, action) => {
       state.coinsList = action.payload;

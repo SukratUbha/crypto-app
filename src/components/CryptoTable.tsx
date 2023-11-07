@@ -15,12 +15,14 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import { TableHead } from '@mui/material';
+import { Link } from 'react-router-dom';
+
 type CryptoTableProps = {
   cryptoList: CoinType[],
   tableProps: { [key: string]: string };
 };
 
-interface TablePaginationActionsProps {
+type TablePaginationActionsProps = {
   count: number;
   page: number;
   rowsPerPage: number;
@@ -89,10 +91,8 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
 export default function CryptoTable({ cryptoList, tableProps }: CryptoTableProps) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  console.log(tableProps);
 
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - cryptoList.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - cryptoList.length) : 0;
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -108,38 +108,42 @@ export default function CryptoTable({ cryptoList, tableProps }: CryptoTableProps
     setPage(0);
   };
 
+  function handleRowClick(row: string): void {
+    throw new Error('Function not implemented.');
+  }
+
   return (
     <TableContainer>
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-        <TableHead>
-          <TableRow>
+        <TableHead component='div'>
+          <TableRow component='div'>
             {Object.entries(tableProps).map(([key, value]) => (
-                <TableCell key={key} align='left'>{key}</TableCell>
+              <TableCell key={key} align='left' sx={{ fontWeight: 'bold' }}>{key}</TableCell>
             ))}
           </TableRow>
         </TableHead>
-        <TableBody>
+        <TableBody component='div'>
           {(rowsPerPage > 0
             ? cryptoList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : cryptoList
           ).map((row) => (
-            <TableRow hover sx={{ border: 0 }} key={row.id}>
-            {Object.entries(tableProps).map(([key, value]) => (
-                <TableCell key={row.id} style={{ width: 160 }} align="left">
+            <TableRow hover sx={{ border: 0 }} key={row.id} >
+              {Object.entries(tableProps).map(([key, value]) => (
+                <TableCell component='div' key={`${row.id}-${key}`} style={{ width: 160 }} align="left">
                   {String(row[value])}
                 </TableCell>
-            ))}
+              ))}
             </TableRow>
           ))}
           {emptyRows > 0 && (
             <TableRow style={{ height: 53 * emptyRows }}>
-              <TableCell colSpan={10} />
+              <TableCell colSpan={Object.keys(tableProps).length} />
             </TableRow>
           )}
         </TableBody>
         <TableFooter>
-          <TableRow>
-            <TablePagination
+          <TableRow component='div'>
+            <TablePagination component='div'
               rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
               colSpan={Object.keys(tableProps).length}
               count={cryptoList.length}
@@ -161,3 +165,4 @@ export default function CryptoTable({ cryptoList, tableProps }: CryptoTableProps
     </TableContainer>
   );
 }
+

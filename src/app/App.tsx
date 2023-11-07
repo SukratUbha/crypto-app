@@ -19,7 +19,7 @@ export default function App() {
       <Container maxWidth="xl">
         <Box sx={{ my: 4 }}>
           <Typography sx={{ letterSpacing: 10 }} variant="h4" component="h1" gutterBottom>
-            Cryptocurrency viewing app
+            Welcome to CryptoCurrency!
           </Typography>
           <div className="App">
             <CryptoHome />
