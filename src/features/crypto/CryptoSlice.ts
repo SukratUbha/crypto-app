@@ -33,8 +33,8 @@ export type CoinType = {
 const initialState = {
     coinsList: [] as CoinType[],
     isLoading: true,
-    error: null as null | string
-
+    error: null as null | string,
+    filteredList: [] as CoinType[]
 }
 //Built in redux function to handle async requests
 export const fetchCoins = createAsyncThunk('crypto/fetchCoins', async (apiUrl:string) =>{
@@ -52,10 +52,10 @@ const CryptoSlice = createSlice({
   name: 'crypto',
   initialState,
   reducers: {
-    filteredList: (state, payload) => {
-      // const filteredList = state.coinsList.filter(item =>
-      //   item.name.toLowerCase().includes(payload.text.toLowerCase())
-    // );
+    filteredList: (state, action) => {
+      state.filteredList = state.coinsList.filter(item =>
+        item.name.toLowerCase().includes(action.payload.toLowerCase())
+    );
     }
   },
   extraReducers: (builder) => {

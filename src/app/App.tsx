@@ -6,7 +6,7 @@ import './App.css';
 import { useAppDispatch } from '../store';
 import { fetchCoins } from '../features/crypto/CryptoSlice';
 import CryptoHome from '../components/CryptoHome';
-import CoinDetailPage from '../components/CoinDetailPage';
+import DetailPage from '../components/DetailPage';
 import { Route, Routes } from 'react-router-dom';
 
 export default function App() {
@@ -18,20 +18,9 @@ export default function App() {
   }, [dispatch]);
 
   return (
-    // <Container maxWidth="xl">
-    //   <Box sx={{ my: 4 }}>
-    //     <Typography sx={{ letterSpacing: 10 }} variant="h4" component="h1" gutterBottom>
-    //       Welcome to CryptoCurrency!
-    //     </Typography>
-    //     <div className="App">
-    //     {/* <Route path="/about" element={<CoinDetailPage />} /> */}
-    //       <CryptoHome />
-    //     </div>
-    //   </Box>
-    // </Container>
     <Routes>
       <Route path="/" element={<CryptoHome />} />
-      <Route path="/about" element={<CoinDetailPage />} />
+      <Route path="/about" element={<DetailPage />} />
     </Routes>
   );
 }
