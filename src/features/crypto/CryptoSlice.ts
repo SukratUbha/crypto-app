@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios';
 
 export type CoinType = {
@@ -56,7 +56,7 @@ const CryptoSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCoins.fulfilled, (state, action) => {
-      state.coinsList = action.payload
+      state.coinsList = action.payload;
       state.isLoading = false;
     })
     builder.addCase(fetchCoins.rejected, (state, action) => {
@@ -68,7 +68,7 @@ const CryptoSlice = createSlice({
     })
   }
 });
-
+ 
 export const { SetCrypto } = CryptoSlice.actions
 
 export default CryptoSlice.reducer
