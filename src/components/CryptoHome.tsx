@@ -46,11 +46,22 @@ export default function CryptoHome() {
                         sx={{ color: 'white', width: '100%', input: { color: 'white' } }}
                     />
                 </AppBar>
-
-                <CryptoTable
-                    cryptoList={filteredList.length ? filteredList : list}
-                    tableProps={{ 'Coin': 'name', 'Price': 'current_price', '24h High': 'high_24h', '24h Low': 'low_24h', '24h price change%': 'price_change_percentage_24h', 'Mkt Cap': 'market_cap' }}
-                />
+                {/* need to move search ourside of homepage in a seperate folder */}
+                {!found ? (
+                    <>Nothing exists with that name</>
+                ) : (
+                    <CryptoTable
+                        cryptoList={filteredList.length ? filteredList : list}
+                        tableProps={{
+                            'Coin': 'name',
+                            'Price': 'current_price',
+                            '24h High': 'high_24h',
+                            '24h Low': 'low_24h',
+                            '24h price change%': 'price_change_percentage_24h',
+                            'Mkt Cap': 'market_cap'
+                        }}
+                    />
+                )}
             </div>
         )
     }
