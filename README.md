@@ -7,7 +7,7 @@ npm run --force should overcome any of those.
 
 ## Testing:
 
-I havent finished writing my tests, so while 1 passes, others need more work in setting up.
+I haven,t finished writing my tests, so while 1 passes, others need more work in setting up.
 
 ## Available Scripts
 

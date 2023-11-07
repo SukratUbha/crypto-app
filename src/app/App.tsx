@@ -8,6 +8,7 @@ import { fetchCoins } from '../features/crypto/CryptoSlice';
 import CryptoHome from '../components/CryptoHome';
 import DetailPage from '../components/DetailPage';
 import { Route, Routes } from 'react-router-dom';
+import PageNavbar from '../components/PageNavbar';
 
 export default function App() {
   const dispatch = useAppDispatch();
@@ -18,10 +19,13 @@ export default function App() {
   }, [dispatch]);
 
   return (
-    <Routes>
-      <Route path="/" element={<CryptoHome />} />
-      <Route path="/about/:coinId" element={<DetailPage />} />
-    </Routes>
+    <>
+      <PageNavbar />
+      <Routes>
+        <Route path="/" element={<CryptoHome />} />
+        <Route path="/about/:coinId" element={<DetailPage />} />
+      </Routes>
+    </>
   );
 }
 

@@ -1,9 +1,7 @@
 import CryptoTable from './CryptoTable'
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../store';
-import { AppBar, LinearProgress, TextField } from '@mui/material';
-import React, { ChangeEvent, useState } from 'react';
-import { getFilteredList } from '../features/crypto/CryptoSlice';
+import { LinearProgress } from '@mui/material';
 
 export default function CryptoHome() {
     const list = useSelector((state: RootState) => state.crypto.coinsList)
@@ -11,12 +9,36 @@ export default function CryptoHome() {
     const error = useSelector((state: RootState) => state.crypto.error)
     const found = useSelector((state: RootState) => state.crypto.found)
     const filteredList = useSelector((state: RootState) => state.crypto.filteredList)
-    const [filterText, setFilterText] = useState('');
-    const dispatch = useDispatch();
 
-    function handleSearch(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
-        setFilterText(event.target.value);
-        dispatch(getFilteredList(filterText));
+    if (list.length) {
+        if (!found) {
+            return (<div>Nothing exists with that name</div>)
+        }
+        //CryptoTable props: 
+        //cryptoList is a filtered array of CoinType if filteredList has text otherwise full list
+        //tableProps is key: value in the form of table heading and the fetchedData type name from CoinsType
+        return (
+            <div className='website-homepage'>
+                {/* <PageNavbar /> */}
+                <div>
+                    {!found ? (
+                        <div className='text text-not-found'>Nothing found</div>
+                    ) : (
+                        <CryptoTable
+                            cryptoList={filteredList.length ? filteredList : list}
+                            tableProps={{
+                                'Coin': 'name',
+                                'Price': 'current_price',
+                                '24h High': 'high_24h',
+                                '24h Low': 'low_24h',
+                                '24h price change%': 'price_change_percentage_24h',
+                                'Mkt Cap': 'market_cap'
+                            }}
+                        />
+                    )}
+                </div>
+            </div>
+        )
     }
 
     if (error) {
@@ -26,45 +48,6 @@ export default function CryptoHome() {
     if (isLoading) {
         <LinearProgress />
     };
-    if (list.length > 0) {
-        if (!found) {
-            return (<div>Nothing exists with that name</div>)
-        }
-        //CryptoTable props: 
-        //cryptoList is a filtered array of CoinType if filteredList has text otherwise full list
-        //tableProps is key: value in the form of table heading and the fetchedData type name from CoinsType
-        return (
-            <div className='website-homepage'>
-
-                <AppBar position="static" sx={{ height: '50px' }}>
-                    <TextField
-                        id="search-textfield"
-                        label="Search Crypto"
-                        aria-label="SearchBar"
-                        variant="standard"
-                        onChange={(e) => handleSearch(e)}
-                        sx={{ color: 'white', width: '100%', input: { color: 'white' } }}
-                    />
-                </AppBar>
-                {/* need to move search ourside of homepage in a seperate folder */}
-                {!found ? (
-                    <>Nothing exists with that name</>
-                ) : (
-                    <CryptoTable
-                        cryptoList={filteredList.length ? filteredList : list}
-                        tableProps={{
-                            'Coin': 'name',
-                            'Price': 'current_price',
-                            '24h High': 'high_24h',
-                            '24h Low': 'low_24h',
-                            '24h price change%': 'price_change_percentage_24h',
-                            'Mkt Cap': 'market_cap'
-                        }}
-                    />
-                )}
-            </div>
-        )
-    }
     return (
         <LinearProgress />
     )
