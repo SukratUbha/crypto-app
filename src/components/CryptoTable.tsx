@@ -125,8 +125,9 @@ export default function CryptoTable({ cryptoList, tableProps }: CryptoTableProps
           ).map((row) => (
             <TableRow hover sx={{ border: 0 }} key={row.id} onClick={() => { navigate(`/about/${row.id}`); }}>
               {Object.entries(tableProps).map(([key, value]) => (
-                // Format data to includes commas and $ excluding any heading with '%'
-                <TableCell className={`table-body-cell-${key}`} key={`${row.id}-${key}`} style={{ width: 160}} align="left" data-value={row[value]}>
+                // Make percentages color red ift they're negative and green if they're positive, ideally should apply using css and classnames instead of complex calculations like below - this is here for the time being
+                <TableCell className={`table-body-cell-${key}`} key={`${row.id}-${key}`} style={{ width: 160, color: !isNaN(parseFloat(String(row[value]))) && key.includes('%') ? (parseFloat(String(row[value])) >= 0  ? 'green' : 'red') : 'black'}} align="left" data-value={row[value]}>
+                  {/* // Format data to includes commas and $ excluding any heading with '%' */}
                    {typeof row[value] === 'number' && !key.includes('%') ? `$${row[value].toLocaleString()}` : row[value]}
                 </TableCell>
               ))}

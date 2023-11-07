@@ -54,12 +54,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
  
 export default function PageNavbar() {
-    const [filterText, setFilterText] = React.useState('');
     const dispatch = useDispatch();
     
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setFilterText(event.target.value);
-        dispatch(getFilteredList(filterText));
+        dispatch(getFilteredList(event.target.value));
     }
 
     return (

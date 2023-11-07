@@ -58,17 +58,15 @@ const CryptoSlice = createSlice({
   initialState,
   reducers: {
     getFilteredList: (state, action) => {
-       const result = state.coinsList.filter((item) =>
+            const result = state.coinsList.filter((item) =>
         item.name.toLowerCase().includes(action.payload.toLowerCase())
       );
       if (Object.keys(result).length) {
-        state.filteredList = result
+        state.filteredList = result;
         state.found = true;
-      }
-      else{
+      } else {
         state.found = false;
       }
-
     },
     getCoinById: (state, action) => {
       const coin = state.coinsList.find((coin) => coin.id === action.payload);
@@ -81,6 +79,7 @@ const CryptoSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchCoins.fulfilled, (state, action) => {
       state.coinsList = action.payload;
+      state.filteredList = action.payload;
       state.isLoading = false;
     });
     builder.addCase(fetchCoins.rejected, (state, action) => {
