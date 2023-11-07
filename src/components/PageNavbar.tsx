@@ -81,7 +81,7 @@ export default function PageNavbar() {
                         component="div"
                         sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
                     >
-                        MUI
+                        Crypto Kingdom
                     </Typography>
                     <Search>
                         <SearchIconWrapper>
