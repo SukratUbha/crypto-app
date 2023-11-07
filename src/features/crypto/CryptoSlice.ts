@@ -73,6 +73,6 @@ const CryptoSlice = createSlice({
   }
 });
  
-export const { } = CryptoSlice.actions
+export const { filteredList } = CryptoSlice.actions
 
 export default CryptoSlice.reducer

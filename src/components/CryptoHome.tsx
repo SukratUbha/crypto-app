@@ -14,9 +14,9 @@ export default function CryptoHome() {
         setFilterText(event.target.value);
     }
 
-    // if (error) {
-    //     return (<div>{error}</div>)
-    // }
+    if (error) {
+        return (<div>{error}</div>)
+    }
 
     if (list.length > 0) {
         // Filter the list based on the filterText

@@ -15,7 +15,7 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import { TableHead } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 type CryptoTableProps = {
   cryptoList: CoinType[],
@@ -91,7 +91,7 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
 export default function CryptoTable({ cryptoList, tableProps }: CryptoTableProps) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
+  const navigate = useNavigate();
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - cryptoList.length) : 0;
 
   const handleChangePage = (
@@ -108,28 +108,24 @@ export default function CryptoTable({ cryptoList, tableProps }: CryptoTableProps
     setPage(0);
   };
 
-  function handleRowClick(row: string): void {
-    throw new Error('Function not implemented.');
-  }
-
   return (
     <TableContainer>
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-        <TableHead component='div'>
-          <TableRow component='div'>
+        <TableHead>
+          <TableRow>
             {Object.entries(tableProps).map(([key, value]) => (
               <TableCell key={key} align='left' sx={{ fontWeight: 'bold' }}>{key}</TableCell>
             ))}
           </TableRow>
         </TableHead>
-        <TableBody component='div'>
+        <TableBody>
           {(rowsPerPage > 0
             ? cryptoList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : cryptoList
           ).map((row) => (
-            <TableRow hover sx={{ border: 0 }} key={row.id} >
+            <TableRow hover sx={{ border: 0 }} key={row.id} onClick={() => { navigate(`/about/:${row.id}`); }}>
               {Object.entries(tableProps).map(([key, value]) => (
-                <TableCell component='div' key={`${row.id}-${key}`} style={{ width: 160 }} align="left">
+                <TableCell key={`${row.id}-${key}`} style={{ width: 160 }} align="left">
                   {String(row[value])}
                 </TableCell>
               ))}
@@ -142,8 +138,8 @@ export default function CryptoTable({ cryptoList, tableProps }: CryptoTableProps
           )}
         </TableBody>
         <TableFooter>
-          <TableRow component='div'>
-            <TablePagination component='div'
+          <TableRow>
+            <TablePagination
               rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
               colSpan={Object.keys(tableProps).length}
               count={cryptoList.length}

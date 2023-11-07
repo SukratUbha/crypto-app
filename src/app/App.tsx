@@ -1,31 +1,38 @@
 import { useEffect } from 'react';
 import './App.css';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+// import Container from '@mui/material/Container';
+// import Typography from '@mui/material/Typography';
+// import Box from '@mui/material/Box';
 import { useAppDispatch } from '../store';
 import { fetchCoins } from '../features/crypto/CryptoSlice';
 import CryptoHome from '../components/CryptoHome';
+import CoinDetailPage from '../components/CoinDetailPage';
+import { Route, Routes } from 'react-router-dom';
 
 export default function App() {
   const dispatch = useAppDispatch();
-  
+
 
   useEffect(() => {
-      dispatch(fetchCoins(`${process.env.REACT_APP_ALL_COIN_LIST}`))
-    }, [dispatch]);
+    dispatch(fetchCoins(`${process.env.REACT_APP_ALL_COIN_LIST}`))
+  }, [dispatch]);
 
   return (
-      <Container maxWidth="xl">
-        <Box sx={{ my: 4 }}>
-          <Typography sx={{ letterSpacing: 10 }} variant="h4" component="h1" gutterBottom>
-            Welcome to CryptoCurrency!
-          </Typography>
-          <div className="App">
-            <CryptoHome />
-          </div>
-        </Box>
-      </Container>
+    // <Container maxWidth="xl">
+    //   <Box sx={{ my: 4 }}>
+    //     <Typography sx={{ letterSpacing: 10 }} variant="h4" component="h1" gutterBottom>
+    //       Welcome to CryptoCurrency!
+    //     </Typography>
+    //     <div className="App">
+    //     {/* <Route path="/about" element={<CoinDetailPage />} /> */}
+    //       <CryptoHome />
+    //     </div>
+    //   </Box>
+    // </Container>
+    <Routes>
+      <Route path="/" element={<CryptoHome />} />
+      <Route path="/about" element={<CoinDetailPage />} />
+    </Routes>
   );
 }
 
