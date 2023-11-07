@@ -35,7 +35,8 @@ const initialState = {
   isLoading: true,
   error: null as null | string,
   filteredList: [] as CoinType[],
-  coin: {} as CoinType
+  coin: {} as CoinType,
+  found: true
 };
 //Built in redux function to handle async requests
 export const fetchCoins = createAsyncThunk(
@@ -56,15 +57,24 @@ const CryptoSlice = createSlice({
   name: "crypto",
   initialState,
   reducers: {
-    filteredList: (state, action) => {
-      state.filteredList = state.coinsList.filter((item) =>
+    getFilteredList: (state, action) => {
+       const result = state.coinsList.filter((item) =>
         item.name.toLowerCase().includes(action.payload.toLowerCase())
       );
+      if (Object.keys(result).length) {
+        state.filteredList = result
+        state.found = true;
+      }
+      else{
+        state.found = false;
+      }
+
     },
     getCoinById: (state, action) => {
       const coin = state.coinsList.find((coin) => coin.id === action.payload);
       if (coin) {
         state.coin = coin;
+        state.found = true;
       }
     },
   },
@@ -83,6 +93,6 @@ const CryptoSlice = createSlice({
   },
 });
 
-export const { filteredList, getCoinById } = CryptoSlice.actions;
+export const { getFilteredList, getCoinById } = CryptoSlice.actions;
 
 export default CryptoSlice.reducer;

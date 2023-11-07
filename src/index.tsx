@@ -7,7 +7,6 @@ import { Provider } from 'react-redux';
 import { store } from './store';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 const root = ReactDOM.createRoot(
@@ -19,9 +18,6 @@ root.render(
       <Provider store={store}>
       <Container maxWidth="xl">
         <Box sx={{ my: 4 }}>
-          {/* <Typography sx={{ letterSpacing: 10 }} variant="h4" component="h1" gutterBottom>
-             Welcome to CryptoCurrency!
-          </Typography> */}
         <App />
         </Box>
       </Container>

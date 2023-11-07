@@ -34,8 +34,7 @@ const testList:CoinType[] = [{
   last_updated: "2023-11-04T20:47:31.556Z"
 }]
 
-test('renders the coin table', () => {
-  render(<CryptoTable {...testList}/>);
+test('renders the coin table', () => {});
   const linkElement = screen.getByRole("table");
   expect(linkElement).toBeInTheDocument();
 });

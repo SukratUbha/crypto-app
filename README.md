@@ -2,8 +2,12 @@
 
 Use npm run --force
 
-I have nvm installed on my machine with the latest version of node which is currently causing a few dependency errors,
+I have nvm installed on my machine with the latest version of node which is currently causing a few dependency errors on my package-lock.
 npm run --force should overcome any of those.
+
+## Testing:
+
+I havent finished writing my tests, so while 1 passes, others need more work in setting up.
 
 ## Available Scripts
 
