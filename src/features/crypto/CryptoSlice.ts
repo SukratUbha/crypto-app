@@ -36,7 +36,8 @@ const initialState = {
   error: null as null | string,
   filteredList: [] as CoinType[],
   coin: {} as CoinType,
-  found: true
+  found: true,
+  pinnedCoins: [] as CoinType[]
 };
 //Built in redux function to handle async requests
 export const fetchCoins = createAsyncThunk(
@@ -75,6 +76,9 @@ const CryptoSlice = createSlice({
         state.found = true;
       }
     },
+    setPinnedCoins: (state, action) => {
+      state.pinnedCoins.push(action.payload);
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCoins.fulfilled, (state, action) => {
@@ -92,6 +96,6 @@ const CryptoSlice = createSlice({
   },
 });
 
-export const { getFilteredList, getCoinById } = CryptoSlice.actions;
+export const { getFilteredList, getCoinById, setPinnedCoins } = CryptoSlice.actions;
 
 export default CryptoSlice.reducer;

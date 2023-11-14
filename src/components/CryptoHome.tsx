@@ -2,6 +2,7 @@ import CryptoTable from './CryptoTable'
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { LinearProgress } from '@mui/material';
+import PinnedCoins from './PinnedCoins';
 
 export default function CryptoHome() {
     const list = useSelector((state: RootState) => state.crypto.coinsList)
@@ -19,6 +20,7 @@ export default function CryptoHome() {
         //tableProps is key: value in the form of table heading and the fetchedData type name from CoinsType
         return (
             <div className='website-homepage'>
+                <PinnedCoins />
                 {/* <PageNavbar /> */}
                 <div>
                     {!found ? (
@@ -32,7 +34,8 @@ export default function CryptoHome() {
                                 '24h High': 'high_24h',
                                 '24h Low': 'low_24h',
                                 '24h price change%': 'price_change_percentage_24h',
-                                'Mkt Cap': 'market_cap'
+                                'Mkt Cap': 'market_cap',
+                                'Actions': 'pin'
                             }}
                         />
                     )}

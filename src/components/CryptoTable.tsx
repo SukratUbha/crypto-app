@@ -16,6 +16,8 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import { TableHead } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../store';
+import { setPinnedCoins } from '../features/crypto/CryptoSlice';
 
 type CryptoTableProps = {
   cryptoList: CoinType[],
@@ -31,7 +33,6 @@ type TablePaginationActionsProps = {
     newPage: number,
   ) => void;
 }
-
 function TablePaginationActions(props: TablePaginationActionsProps) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
@@ -93,6 +94,11 @@ export default function CryptoTable({ cryptoList, tableProps }: CryptoTableProps
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const navigate = useNavigate();
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - cryptoList.length) : 0;
+  const dispatch = useAppDispatch()
+
+  function setPinned(key: string, change: number, image: string) {
+    dispatch(setPinnedCoins([key, change, image]))
+  }
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -126,12 +132,22 @@ export default function CryptoTable({ cryptoList, tableProps }: CryptoTableProps
             <TableRow hover sx={{ border: 0 }} key={row.id} onClick={() => { navigate(`/about/${row.id}`); }}>
               {Object.entries(tableProps).map(([key, value]) => (
                 // Make percentages color red ift they're negative and green if they're positive, ideally should apply using css and classnames instead of complex calculations like below - this is here for the time being
-                <TableCell className={`table-body-cell-${key}`} key={`${row.id}-${key}`} style={{ width: 160, color: !isNaN(parseFloat(String(row[value]))) && key.includes('%') ? (parseFloat(String(row[value])) >= 0  ? 'green' : 'red') : 'black'}} align="left" data-value={row[value]}>
-                  {/* // Format data to includes commas and $ excluding any heading with '%' */}
-                   {typeof row[value] === 'number' && !key.includes('%') ? `$${row[value].toLocaleString()}` : row[value]}
-                </TableCell>
+                <>
+                  <TableCell className={`table-body-cell-${key}`} key={`${row.id}-${key}`} style={{ width: 160, color: !isNaN(parseFloat(String(row[value]))) && key.includes('%') ? (parseFloat(String(row[value])) >= 0 ? 'green' : 'red') : 'black' }} align="left" data-value={row[value]}>
+                    {/* // Format data to includes commas and $ excluding any heading with '%' */}
+                    {typeof row[value] === 'number' && !key.includes('%') && key !== 'pin' ? `$${row[value].toLocaleString()}` : row[value]}
+                    {value=== 'pin' ?<button type="button" onClick={(e) => { e.stopPropagation(); setPinned(row.id, row.price_change_24h, row.image) }}><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M12,22l1-2v-3h5c0.553,0,1-0.447,1-1v-1.586c0-0.526-0.214-1.042-0.586-1.414L17,11.586V8c0.553,0,1-0.447,1-1V4 c0-1.103-0.897-2-2-2H8C6.897,2,6,2.897,6,4v3c0,0.553,0.448,1,1,1v3.586L5.586,13C5.213,13.372,5,13.888,5,14.414V16 c0,0.553,0.448,1,1,1h5v3L12,22z M8,4h8v2H8V4z M7,14.414l1.707-1.707C8.895,12.52,9,12.266,9,12V8h6v4 c0,0.266,0.105,0.52,0.293,0.707L17,14.414V15H7V14.414z"></path></svg></button> : ''}
+                  </TableCell>
+                  {/* <TableCell className='pin-coin' key={`${row.id}-${key}`} >
+                    <button type="button" onClick={() => { setPinned(row.id, row.price_change_24h, row.image) }}>
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M12,22l1-2v-3h5c0.553,0,1-0.447,1-1v-1.586c0-0.526-0.214-1.042-0.586-1.414L17,11.586V8c0.553,0,1-0.447,1-1V4 c0-1.103-0.897-2-2-2H8C6.897,2,6,2.897,6,4v3c0,0.553,0.448,1,1,1v3.586L5.586,13C5.213,13.372,5,13.888,5,14.414V16 c0,0.553,0.448,1,1,1h5v3L12,22z M8,4h8v2H8V4z M7,14.414l1.707-1.707C8.895,12.52,9,12.266,9,12V8h6v4 c0,0.266,0.105,0.52,0.293,0.707L17,14.414V15H7V14.414z"></path></svg>
+                    </button>
+                  </TableCell> */}
+                </>
               ))}
             </TableRow>
+
+
           ))}
           {emptyRows > 0 && (
             <TableRow style={{ height: 53 * emptyRows }}>
